@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair<long long,long long> pll;
+typedef vector <bool> vb;
+typedef vector<long long> vl;
+
+#define fp(nm) freopen(nm".INP","r",stdin);freopen(nm".OUT","w",stdout);
+#define boost ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define wrong cout<<-1<<endl;
+#define sast cout<<ans<<endl;
+#define endl '\n'
+
+const ll MAXN = 1e7;
+const ll MOD = 1e9+7;
+
+vl dp(MAXN,MAXN),a(MAXN);
+ll n,x;
+void solution(){
+  cin>>n>>x;
+  a.assign(n+1,0);
+  dp.assign(x+1,MAXN);
+  for (ll i=1;i<=n;i++) cin>>a[i];
+  dp[0]=0;
+  for (ll i=1;i<=x;i++){
+    for (ll j=1;j<=n;j++){
+      if (i>=a[j]) dp[i]=min(dp[i],dp[i-a[j]]+1);
+    }
+  }
+  dp[x]=(dp[x]==MAXN)?-1:dp[x];
+  cout<<dp[x];
+}
+
+int main(){
+
+boost
+// fp("");
+
+ll q=1;
+// cin>>q;
+while (q--){
+solution();
+}
+return 0;
+}
+/*  Code by FrederikSama1911 - T2 - GĐ2528
+    Being energized by YC2704
+*/
