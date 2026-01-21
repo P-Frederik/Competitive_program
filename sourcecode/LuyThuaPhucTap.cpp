@@ -39,7 +39,7 @@ int main(){
     // auto startTime = chrono::steady_clock::now();
     //fp("");
     ll q=1;
-    // cin>>q;
+    cin>>q;
     while(q--){
       solution();
     }
