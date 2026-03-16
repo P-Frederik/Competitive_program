@@ -9,8 +9,16 @@ void intit(){
 }
 int main() {
     intit();
-    long long a, b;
-    cin >> a >> b;
-    cout << a + b << '\n';
+    ll n,m,ans;
+    cin>>n>>m;
+    for (ll i=0;i<n;i++){
+        ll tmp=i/2;
+        ans+=tmp;
+    }
+    for (ll i=0;i<m;i++){
+        ll tmp2=sqrt(i);
+        ans+=tmp2;
+        if (tmp2*tmp2==i) ans--;
+    }
     return 0;
 }

@@ -18,58 +18,53 @@ const ll INF = 1e18;
 
 // bool BEGIN_ALLOC;
 // bool END_ALLOC;
-struct Time{
-    ll l,r,w;
-};
-bool cp(ll x){
-    ll tmpp1=sqrt(x);
-    ll tmpp2=sqrt(x);
-    if (tmpp1*tmpp2==x)return true;
-    return false;
+
+ll sumdigit(ll x){
+    ll sum=0;
+    while (x>0){
+        sum+=x%10;
+        x/=10;
+    }
+    return sum;
 }
-bool cmp(Time a,Time b){
-    return (a.r==b.r)?a.l<b.l:a.r<b.r;
-}
+ll poww[36];
 void solution(){
-    ll n,m;
-    cin>>n>>m;
-    n--;
-    m--;
-    ll curx=0;
-    ll tmp1=0,tmp2=0,tmp3=0,tmp4=0;
-    if (n%2==0){
-        tmp1=(n/2)*(n/2 +1);
-        // cout<<tmp1<<endl;
+    ll a;cin>>a;
+    if (a<=9){
+        cout<<a<<endl;
+        return;
     }
-    if (n%2!=0){
-        tmp1=(n/2)*(n/2 +1)/2+n/2;
-        // cout<<tmp2<<endl;
-    }
-    if (cp(m)){
-        for (ll i=1;i*i<=m;i++){
-            tmp2+=(i-1)*((i*i)-(curx*curx));
-            // cout<<i<<" "<<tmp3<<" "<<curx<<endl;
-            curx=i;
+    poww[0] = 1;
+    ll tmp = 0, cnt = 0, ans = 0, re = 0;
+    for(ll i = 1; i <= 18; i++) poww[i] = poww[i - 1] * 10;
+    for(ll i = 0; i <= 18; i++){
+        if(tmp + 9 * poww[i] <= a){
+            tmp += 9 * poww[i];
+            cnt++;
         }
-        // cout<<tmp3<<endl;
-    }
-    if (!cp(m)){
-        for (ll i=1;i*i<=m;i++){
-            tmp2+=(i-1)*((i*i)-(curx*curx));
-            // cout<<i<<" "<<tmp3<<" "<<curx<<endl;
-            curx=i;
+        else {
+            for(ll j = 9; j >= 0; j--){
+                if(tmp + j * poww[i] <= a){
+                    ans += j;
+                    tmp += j * poww[i];
+                    break;
+                }
+            }
         }
-        // cout<<curx<<endl;
-        tmp2+=(m-curx*curx)*(curx);
-        // cout<<tmp4<<endl;
     }
-    cout<<tmp1+tmp2<<endl;
+    ans += cnt * 9;
+    re = a - tmp;
+     while(re != 0){
+        ans += re % 10;
+        re /= 10;
+    }
+    cout << ans;
 }
 
 int main(){
     boost
     // auto startTime = chrono::steady_clock::now();
-    fp("file");
+    //fp("");
     ll q=1;
     // cin>>q;
     while(q--){

@@ -18,58 +18,30 @@ const ll INF = 1e18;
 
 // bool BEGIN_ALLOC;
 // bool END_ALLOC;
-struct Time{
-    ll l,r,w;
-};
-bool cp(ll x){
-    ll tmpp1=sqrt(x);
-    ll tmpp2=sqrt(x);
-    if (tmpp1*tmpp2==x)return true;
-    return false;
-}
-bool cmp(Time a,Time b){
-    return (a.r==b.r)?a.l<b.l:a.r<b.r;
-}
+
 void solution(){
-    ll n,m;
-    cin>>n>>m;
-    n--;
-    m--;
-    ll curx=0;
-    ll tmp1=0,tmp2=0,tmp3=0,tmp4=0;
-    if (n%2==0){
-        tmp1=(n/2)*(n/2 +1);
-        // cout<<tmp1<<endl;
-    }
-    if (n%2!=0){
-        tmp1=(n/2)*(n/2 +1)/2+n/2;
-        // cout<<tmp2<<endl;
-    }
-    if (cp(m)){
-        for (ll i=1;i*i<=m;i++){
-            tmp2+=(i-1)*((i*i)-(curx*curx));
-            // cout<<i<<" "<<tmp3<<" "<<curx<<endl;
-            curx=i;
+    ll r1,r2,c1,c2,d1,d2;
+    cin>>r1>>r2>>c1>>c2>>d1>>d2;
+    for (ll i=1;i<=9;i++){
+        for (ll j=1;j<=9;j++){
+            for (ll k=1;k<=9;k++){
+                for (ll z=1;z<=9;z++){
+                    if (i!=j&&j!=k&&k!=z&&z!=i&&i+j==r1&&k+z==r2&&i+k==c1&&j+z==c2&&i+z==d1&&j+k==d2){
+                        cout<<i<<" "<<j<<endl;
+                        cout<<k<<" "<<z<<endl;
+                        return;
+                    }
+                }
+            }
         }
-        // cout<<tmp3<<endl;
     }
-    if (!cp(m)){
-        for (ll i=1;i*i<=m;i++){
-            tmp2+=(i-1)*((i*i)-(curx*curx));
-            // cout<<i<<" "<<tmp3<<" "<<curx<<endl;
-            curx=i;
-        }
-        // cout<<curx<<endl;
-        tmp2+=(m-curx*curx)*(curx);
-        // cout<<tmp4<<endl;
-    }
-    cout<<tmp1+tmp2<<endl;
+    cout<<-1<<endl;
 }
 
 int main(){
     boost
     // auto startTime = chrono::steady_clock::now();
-    fp("file");
+    //fp("");
     ll q=1;
     // cin>>q;
     while(q--){
