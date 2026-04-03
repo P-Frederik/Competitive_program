@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef pair<ll,ll> pll;
+typedef vector<bool> vb;
+typedef vector<ll> vl;
+
+#define fp(nm) freopen(nm".INP","r",stdin);freopen(nm".OUT","w",stdout);
+#define boost ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define wrong cout<<"NO"<<endl;
+#define endl '\n';
+#define TIME (1.0 * clock() / CLOCKS_PER_SEC)
+
+const ll MAXN = 1e9+1;
+const ll MOD = 1e9+7;
+const ll INF = 1e18;
+
+// bool BEGIN_ALLOC;
+// bool END_ALLOC;
+
+struct DSU{
+    vl par,size,sum;
+    void make_set(ll n){
+        par.resize(n+1);
+        size.resize(n+1);
+        for (ll i=1;i<=n;i++){
+            par[i]=i;
+            size[i]=1;
+        }
+    }
+    ll get(ll u){
+        if (u==par[u]) return u;
+        else return par[u]=get(par[u]);
+    }
+    void join(ll a,ll b){
+        a=get(a);
+        b=get(b);
+        if (a==b) return;
+        if (size[a]<size[b]) swap(a,b);
+        par[b]=a;
+        size[a]+=size[b];
+    }
+}dsu;
+
+void solution(){
+    ll n,m,q;
+    cin>>n>>m>>q;
+    dsu.make_set(n);
+    vb visited(m+1,false);
+    vector<pll> edge(m+1);
+    vector<pll> queries(q+1);
+    for (ll i=1;i<=m;i++)cin>>edge[i].first>>edge[i].second;
+    for (ll i=1;i<=q;i++){
+        cin>>queries[i].first>>queries[i].second;
+        visited[queries[i].first]=true;
+    }
+    for (ll i=1;i<=m;i++){
+        if (!visited[i]) dsu.join(edge[i].first,edge[i].second);
+    }
+    vl ans(q+1);
+    reverse(queries.begin()+1,queries.end());
+    for (ll i=1;i<=q;i++){
+        ans[i]=dsu.size[dsu.get(queries[i].second)];
+        dsu.join(edge[queries[i].first].first,edge[queries[i].first].second);
+    }
+    reverse(ans.begin()+1,ans.end());
+    for (ll i=1;i<=q;i++) cout<<ans[i]<<endl;
+}
+
+int main(){
+    boost
+    auto startTime = chrono::steady_clock::now();
+    //fp("");
+    ll q=1;
+    // cin>>q;
+    while(q--){
+      solution();
+    }
+//     auto endTime = chrono::steady_clock::now();
+//   cerr << fixed << setprecision(2) << "[Static memory: " << abs((&BEGIN_ALLOC) - (&END_ALLOC)) / (1024.0 * 1024.0) << "mb]\n";
+//   cerr << "[Time elapsed : " << chrono::duration_cast<chrono::milliseconds>(endTime - startTime).count() << "ms]\n";
+    return 0;
+}
+/*  Code by FrederikSama1911 - T2 - GD2528
+    Being energized by YC2704
+*/
